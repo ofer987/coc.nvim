@@ -568,7 +568,7 @@ export default class Documents implements Disposable {
     if (this.config.useQuickfixForLocations) {
       let openCommand = await nvim.getVar('coc_quickfix_open_command') as string
       if (typeof openCommand != 'string') {
-        openCommand = items.length < 10 ? `copen ${items.length}` : 'copen'
+        openCommand = 'copen'
       }
       nvim.pauseNotification()
       nvim.call('setqflist', [items], true)
