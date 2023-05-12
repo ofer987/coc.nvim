@@ -71,11 +71,8 @@ export default class Menu {
   private addKeymappings(): void {
     let { nvim } = this
     this.addKeys(['<esc>', '<C-c>'], () => {
-      this._onDidClose.fire(-1)
-      this.dispose()
     })
-    this.addKeys(['\r', '<cr>', 'o'], () => {
-      this.selectCurrent()
+    this.addKeys(['\r', '<cr>', 'o', 'u', '<C-i>'], () => {
     })
     let setCursorIndex = idx => {
       nvim.pauseNotification()
@@ -85,10 +82,8 @@ export default class Menu {
       nvim.resumeNotification(false, true)
     }
     this.addKeys('<C-f>', async () => {
-      await this.win.scrollForward()
     })
     this.addKeys('<C-b>', async () => {
-      await this.win.scrollBackward()
     })
     this.addKeys(['j', '<down>', '<tab>', '<C-n>'], () => {
       // next
@@ -96,9 +91,6 @@ export default class Menu {
       setCursorIndex(idx)
     })
     this.addKeys(['k', '<up>', '<s-tab>', '<C-p>'], () => {
-      // previous
-      let idx = this.currIndex == 0 ? this.total - 1 : this.currIndex - 1
-      setCursorIndex(idx)
     })
     this.addKeys(['g'], () => {
       setCursorIndex(0)
